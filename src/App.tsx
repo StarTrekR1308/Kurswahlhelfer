@@ -15,7 +15,6 @@ import { TopAppBar } from './components/TopAppBar';
 import { SummaryBar } from './components/SummaryBar';
 import { SubjectCard } from './components/SubjectCard';
 import { ValidationDrawer } from './components/ValidationDrawer';
-import { SemesterTable } from './components/SemesterTable';
 import { SchoolFilterModal } from './components/SchoolFilterModal';
 import { PresetsModal } from './components/PresetsModal';
 import { ShareModal } from './components/ShareModal';
@@ -28,7 +27,6 @@ export function App() {
   const [belegung, setBelegung] = useState<BelegtesFach[]>([]);
   const [excludedIds, setExcludedIds] = useState<number[]>([]);
   const [isValidationOpen, setIsValidationOpen] = useState(false);
-  const [isSemesterViewOpen, setIsSemesterViewOpen] = useState(false);
 
   // Modals
   const [isPresetsOpen, setIsPresetsOpen] = useState(false);
@@ -333,8 +331,6 @@ export function App() {
           validation={validation}
           isValidationOpen={isValidationOpen}
           onToggleValidation={() => setIsValidationOpen((prev) => !prev)}
-          isSemesterViewOpen={isSemesterViewOpen}
-          onToggleSemesterView={() => setIsSemesterViewOpen((prev) => !prev)}
           belegungCount={belegung.length}
           onPrefillMandatory={handlePrefillMandatory}
         />
@@ -344,14 +340,6 @@ export function App() {
           <ValidationDrawer
             validation={validation}
             onClose={() => setIsValidationOpen(false)}
-          />
-        )}
-
-        {/* Semester Stundenplan Table (Collapsible) */}
-        {isSemesterViewOpen && (
-          <SemesterTable
-            belegung={belegung}
-            validation={validation}
           />
         )}
 

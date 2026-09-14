@@ -7,7 +7,6 @@ import {
   Award,
   ChevronDown,
   ChevronUp,
-  TableProperties,
 } from 'lucide-react';
 import { ValidierungsErgebnis } from '../types';
 
@@ -15,8 +14,6 @@ interface SummaryBarProps {
   validation: ValidierungsErgebnis;
   isValidationOpen: boolean;
   onToggleValidation: () => void;
-  isSemesterViewOpen: boolean;
-  onToggleSemesterView: () => void;
   belegungCount?: number;
   onPrefillMandatory?: () => void;
 }
@@ -25,8 +22,6 @@ export const SummaryBar: React.FC<SummaryBarProps> = ({
   validation,
   isValidationOpen,
   onToggleValidation,
-  isSemesterViewOpen,
-  onToggleSemesterView,
   belegungCount = 0,
   onPrefillMandatory,
 }) => {
@@ -119,19 +114,6 @@ export const SummaryBar: React.FC<SummaryBarProps> = ({
               <span>⚡ Pflichtfächer vorwählen</span>
             </button>
           )}
-
-          <button
-            id="btn-toggle-semester-table"
-            onClick={onToggleSemesterView}
-            className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs sm:text-sm font-medium transition-colors cursor-pointer border ${
-              isSemesterViewOpen
-                ? 'bg-blue-600 text-white border-blue-600'
-                : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
-            }`}
-          >
-            <TableProperties className="w-4 h-4" />
-            <span>Stundenplan & Semester</span>
-          </button>
 
           <button
             id="btn-toggle-validation-drawer"
