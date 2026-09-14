@@ -5,23 +5,17 @@ import {
   Clock,
   BookOpen,
   Award,
-  ChevronDown,
-  ChevronUp,
 } from 'lucide-react';
 import { ValidierungsErgebnis } from '../types';
 
 interface SummaryBarProps {
   validation: ValidierungsErgebnis;
-  isValidationOpen: boolean;
-  onToggleValidation: () => void;
   belegungCount?: number;
   onPrefillMandatory?: () => void;
 }
 
 export const SummaryBar: React.FC<SummaryBarProps> = ({
   validation,
-  isValidationOpen,
-  onToggleValidation,
   belegungCount = 0,
   onPrefillMandatory,
 }) => {
@@ -103,8 +97,8 @@ export const SummaryBar: React.FC<SummaryBarProps> = ({
         </div>
 
         {/* Quick Actions */}
-        <div className="flex items-center gap-2 self-start lg:self-center flex-wrap">
-          {isFresh && onPrefillMandatory && (
+        {isFresh && onPrefillMandatory && (
+          <div className="flex items-center gap-2 self-start lg:self-center">
             <button
               id="btn-prefill-mandatory"
               onClick={onPrefillMandatory}
@@ -113,25 +107,8 @@ export const SummaryBar: React.FC<SummaryBarProps> = ({
             >
               <span>⚡ Pflichtfächer vorwählen</span>
             </button>
-          )}
-
-          <button
-            id="btn-toggle-validation-drawer"
-            onClick={onToggleValidation}
-            className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium transition-colors cursor-pointer border ${
-              isValidationOpen
-                ? 'bg-slate-900 text-white border-slate-900'
-                : 'bg-slate-100 text-slate-800 border-slate-200 hover:bg-slate-200'
-            }`}
-          >
-            <span>{isValidationOpen ? 'Prüfung verbergen' : 'Regelprüfung Details'}</span>
-            {isValidationOpen ? (
-              <ChevronUp className="w-4 h-4" />
-            ) : (
-              <ChevronDown className="w-4 h-4" />
-            )}
-          </button>
-        </div>
+          </div>
+        )}
       </div>
 
       {/* Metric Cards Grid */}

@@ -14,7 +14,6 @@ import { PROFIL_PRESETS } from './utils/presets';
 import { TopAppBar } from './components/TopAppBar';
 import { SummaryBar } from './components/SummaryBar';
 import { SubjectCard } from './components/SubjectCard';
-import { ValidationDrawer } from './components/ValidationDrawer';
 import { SchoolFilterModal } from './components/SchoolFilterModal';
 import { PresetsModal } from './components/PresetsModal';
 import { ShareModal } from './components/ShareModal';
@@ -26,7 +25,6 @@ export function App() {
   // State
   const [belegung, setBelegung] = useState<BelegtesFach[]>([]);
   const [excludedIds, setExcludedIds] = useState<number[]>([]);
-  const [isValidationOpen, setIsValidationOpen] = useState(false);
 
   // Modals
   const [isPresetsOpen, setIsPresetsOpen] = useState(false);
@@ -329,19 +327,9 @@ export function App() {
         {/* Summary & Metrics Bar */}
         <SummaryBar
           validation={validation}
-          isValidationOpen={isValidationOpen}
-          onToggleValidation={() => setIsValidationOpen((prev) => !prev)}
           belegungCount={belegung.length}
           onPrefillMandatory={handlePrefillMandatory}
         />
-
-        {/* Validation Details Drawer (Expandable) */}
-        {isValidationOpen && (
-          <ValidationDrawer
-            validation={validation}
-            onClose={() => setIsValidationOpen(false)}
-          />
-        )}
 
         {/* Search & Filter Toolbar */}
         <div className="bg-white rounded-2xl border border-slate-200 shadow-xs p-3.5 mb-6 flex flex-col sm:flex-row items-center justify-between gap-3">
