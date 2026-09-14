@@ -9,7 +9,6 @@ import {
   RotateCcw,
   CheckCircle2,
   AlertTriangle,
-  Compass,
 } from 'lucide-react';
 import { ProfilPreset } from '../types';
 
@@ -19,7 +18,6 @@ interface TopAppBarProps {
   onOpenShare: () => void;
   onOpenPrint: () => void;
   onOpenHelp: () => void;
-  onOpenTour: () => void;
   onReset: () => void;
   isValid: boolean;
   excludedCount: number;
@@ -31,7 +29,6 @@ export const TopAppBar: React.FC<TopAppBarProps> = ({
   onOpenShare,
   onOpenPrint,
   onOpenHelp,
-  onOpenTour,
   onReset,
   isValid,
   excludedCount,
@@ -123,17 +120,6 @@ export const TopAppBar: React.FC<TopAppBarProps> = ({
             >
               <Printer className="w-4 h-4 text-slate-600" />
               <span className="hidden md:inline">Drucken</span>
-            </button>
-
-            {/* Tour Guide */}
-            <button
-              id="btn-open-tour"
-              onClick={onOpenTour}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 transition-colors cursor-pointer border border-emerald-200"
-              title="Interaktive Schritt-für-Schritt-Anleitung starten"
-            >
-              <Compass className="w-4 h-4 text-emerald-600" />
-              <span className="hidden md:inline">Tour</span>
             </button>
 
             {/* Help */}

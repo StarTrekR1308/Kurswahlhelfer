@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   CheckCircle2,
   AlertCircle,
@@ -8,10 +8,8 @@ import {
   ChevronDown,
   ChevronUp,
   TableProperties,
-  BarChart2,
 } from 'lucide-react';
 import { ValidierungsErgebnis } from '../types';
-import { WeeklyHoursChart } from './WeeklyHoursChart';
 
 interface SummaryBarProps {
   validation: ValidierungsErgebnis;
@@ -32,7 +30,6 @@ export const SummaryBar: React.FC<SummaryBarProps> = ({
   belegungCount = 0,
   onPrefillMandatory,
 }) => {
-  const [isChartVisible, setIsChartVisible] = useState(true);
   const {
     gueltig,
     anzahlLF,
@@ -122,20 +119,6 @@ export const SummaryBar: React.FC<SummaryBarProps> = ({
               <span>⚡ Pflichtfächer vorwählen</span>
             </button>
           )}
-
-          <button
-            id="btn-toggle-hours-chart"
-            onClick={() => setIsChartVisible((prev) => !prev)}
-            className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs sm:text-sm font-medium transition-colors cursor-pointer border ${
-              isChartVisible
-                ? 'bg-blue-50 text-blue-800 border-blue-200 hover:bg-blue-100'
-                : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
-            }`}
-            title="Balkendiagramm der Wochenstunden pro Halbjahr ein-/ausblenden"
-          >
-            <BarChart2 className="w-4 h-4 text-blue-600" />
-            <span>{isChartVisible ? 'Diagramm' : 'Kurslast-Diagramm'}</span>
-          </button>
 
           <button
             id="btn-toggle-semester-table"
@@ -333,14 +316,6 @@ export const SummaryBar: React.FC<SummaryBarProps> = ({
           </p>
         </div>
       </div>
-
-      {/* Visual Weekly Hours Bar Chart */}
-      {isChartVisible && (
-        <WeeklyHoursChart
-          wochenstunden={wochenstunden}
-          durchschnitt={durchschnittWochenstunden}
-        />
-      )}
     </div>
   );
 };

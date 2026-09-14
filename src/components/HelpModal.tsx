@@ -1,13 +1,12 @@
 import React from 'react';
-import { HelpCircle, X, CheckCircle2, AlertTriangle, BookOpen, ShieldCheck, Compass } from 'lucide-react';
+import { HelpCircle, X, CheckCircle2, AlertTriangle, BookOpen, ShieldCheck } from 'lucide-react';
 
 interface HelpModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onStartTour?: () => void;
 }
 
-export const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose, onStartTour }) => {
+export const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
@@ -146,20 +145,7 @@ export const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose, onStartTo
         </div>
 
         {/* Footer */}
-        <div className="p-4 border-t border-slate-200 bg-slate-50/80 flex items-center justify-between gap-3">
-          {onStartTour ? (
-            <button
-              onClick={() => {
-                onClose();
-                onStartTour();
-              }}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 transition-colors cursor-pointer"
-            >
-              <Compass className="w-4 h-4 text-emerald-600" />
-              <span>Tour-Guide starten</span>
-            </button>
-          ) : <div />}
-
+        <div className="p-4 border-t border-slate-200 bg-slate-50/80 flex items-center justify-end">
           <button
             onClick={onClose}
             className="px-5 py-2 rounded-xl text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 transition-colors cursor-pointer"
