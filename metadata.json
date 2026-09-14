@@ -1,0 +1,6 @@
+{
+  "name": "Kurswahl Oberstufe BW",
+  "description": "Interaktive Kurswahl für die gymnasiale Oberstufe in Baden-Württemberg (AGVO) mit moderner Material-Design-Oberfläche, Echtzeit-Prüfung und Stundenberechnung.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
