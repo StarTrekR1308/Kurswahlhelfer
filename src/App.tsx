@@ -229,40 +229,6 @@ export function App() {
     setBelegung(newBelegung);
   };
 
-  // Helper: Vorwahl der 10 Pflichtfächer als Basisfach (optionaler Schnellstart)
-  const handlePrefillMandatory = () => {
-    const mandatoryList: { name: string; typ: Kursart }[] = [
-      { name: 'Deutsch', typ: 'BF' },
-      { name: 'Mathematik', typ: 'BF' },
-      { name: 'Englisch', typ: 'BF' },
-      { name: 'Biologie', typ: 'BF' },
-      { name: 'Geschichte', typ: 'BF' },
-      { name: 'Geographie', typ: 'BF' },
-      { name: 'Gemeinschaftskunde', typ: 'BF' },
-      { name: 'Religionslehre', typ: 'BF' },
-      { name: 'Bildende Kunst', typ: 'BF' },
-      { name: 'Sport', typ: 'BF' },
-    ];
-
-    const newBelegung: BelegtesFach[] = [];
-    for (const item of mandatoryList) {
-      const def = FACH_LISTE.find((f) => f.name === item.name);
-      if (!def) continue;
-      const hours = calculateSubjectHours(def, item.typ, false);
-      newBelegung.push({
-        fachId: def.id,
-        name: def.name,
-        typ: item.typ,
-        aufgabenfeld: def.aufgabenfeld,
-        muendlich: false,
-        alternativStunden: false,
-        stunden: hours,
-        attribute: [...def.attribute],
-      });
-    }
-    setBelegung(newBelegung);
-  };
-
   // Handler: Open Reset confirmation
   const handleReset = () => {
     if (belegung.length === 0) return;
@@ -325,11 +291,7 @@ export function App() {
       {/* Main Content */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         {/* Summary & Metrics Bar */}
-        <SummaryBar
-          validation={validation}
-          belegungCount={belegung.length}
-          onPrefillMandatory={handlePrefillMandatory}
-        />
+        <SummaryBar validation={validation} />
 
         {/* Search & Filter Toolbar */}
         <div className="bg-white rounded-2xl border border-slate-200 shadow-xs p-3.5 mb-6 flex flex-col sm:flex-row items-center justify-between gap-3">

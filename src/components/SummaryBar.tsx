@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   CheckCircle2,
-  AlertCircle,
   Clock,
   BookOpen,
   Award,
@@ -10,14 +9,10 @@ import { ValidierungsErgebnis } from '../types';
 
 interface SummaryBarProps {
   validation: ValidierungsErgebnis;
-  belegungCount?: number;
-  onPrefillMandatory?: () => void;
 }
 
 export const SummaryBar: React.FC<SummaryBarProps> = ({
   validation,
-  belegungCount = 0,
-  onPrefillMandatory,
 }) => {
   const {
     gueltig,
@@ -29,90 +24,22 @@ export const SummaryBar: React.FC<SummaryBarProps> = ({
     anrechnungspflichtigCount,
     abiturFaecher,
     abgedeckteAufgabenfelder,
-    regeln,
   } = validation;
-
-  const unerfuellteRegeln = regeln.filter((r) => !r.erfuellt);
-  const isFresh = belegungCount === 0;
 
   return (
     <div
       id="summary-banner"
       className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 sm:p-5 transition-all mb-6"
     >
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-        {/* Status Pill & Message */}
-        <div className="flex items-start sm:items-center gap-3">
-          <div
-            className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 shadow-xs ${
-              gueltig
-                ? 'bg-emerald-100 text-emerald-700'
-                : isFresh
-                ? 'bg-blue-100 text-blue-700'
-                : 'bg-amber-100 text-amber-700'
-            }`}
-          >
-            {gueltig ? (
-              <CheckCircle2 className="w-7 h-7" />
-            ) : isFresh ? (
-              <BookOpen className="w-7 h-7" />
-            ) : (
-              <AlertCircle className="w-7 h-7" />
-            )}
-          </div>
-          <div>
-            <div className="flex items-center gap-2 flex-wrap">
-              <span
-                className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold tracking-wide uppercase ${
-                  gueltig
-                    ? 'bg-emerald-600 text-white'
-                    : isFresh
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-amber-500 text-white'
-                }`}
-              >
-                {gueltig
-                  ? 'Kurswahl Gültig'
-                  : isFresh
-                  ? 'Bereit zur Kurswahl'
-                  : 'Auswahl Unvollständig'}
-              </span>
-              <span className="text-xs text-slate-500 font-medium">
-                {gueltig
-                  ? 'Alle AGVO-Bedingungen erfüllt'
-                  : isFresh
-                  ? 'Frischer Start ohne Vorgaben'
-                  : `${unerfuellteRegeln.length} Kriterium/-en zu prüfen`}
-              </span>
-            </div>
-            <p className="text-sm font-medium text-slate-800 mt-1">
-              {gueltig
-                ? 'Deine gewählte Fächerkombination erfüllt alle Vorgaben der Prüfungsordnung.'
-                : isFresh
-                ? 'Wähle unten deine 3 Leistungsfächer (LF, 5-stündig) und Basisfächer (BF) aus der Fächerliste.'
-                : unerfuellteRegeln[0]?.statusText ||
-                  'Wähle 3 Leistungsfächer und 2 mündliche Prüfungsfächer.'}
-            </p>
-          </div>
+      {gueltig && (
+        <div className="flex items-center gap-2.5 mb-4 p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-800 text-sm font-medium">
+          <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+          <span>Deine gewählte Fächerkombination erfüllt alle Vorgaben der Prüfungsordnung (AGVO).</span>
         </div>
-
-        {/* Quick Actions */}
-        {isFresh && onPrefillMandatory && (
-          <div className="flex items-center gap-2 self-start lg:self-center">
-            <button
-              id="btn-prefill-mandatory"
-              onClick={onPrefillMandatory}
-              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-blue-50 text-blue-800 hover:bg-blue-100 transition-colors border border-blue-200 cursor-pointer shadow-xs"
-              title="Alle 10 baden-württembergischen Pflichtfächer als Basisfach vorwählen"
-            >
-              <span>⚡ Pflichtfächer vorwählen</span>
-            </button>
-          </div>
-        )}
-      </div>
+      )}
 
       {/* Metric Cards Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mt-4 pt-4 border-t border-slate-100">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
         {/* Leistungsfächer */}
         <div
           className={`p-3 rounded-xl border ${
